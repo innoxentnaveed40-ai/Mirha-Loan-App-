@@ -1,1 +1,90 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mirha Loan App</title>
+<style>
+body{font-family:Arial;background:#f1f5f9;color:#163047;margin:0}
+header{background:#123653;color:white;text-align:center;padding:24px}
+main{max-width:600px;margin:auto;padding:16px}
+.card{background:white;padding:18px;border-radius:14px;margin:15px 0}
+button{background:#079b8b;color:white;border:0;padding:12px;border-radius:8px;margin:4px}
+input,select{box-sizing:border-box;width:100%;padding:12px;margin:8px 0}
+.result{background:#e3f7f3;padding:12px;border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+<h1>🌸 Mirha Loan</h1>
+<p>Loan Planning Made Simple</p>
+</header>
+<main>
+<div class="card">
+<h2>Choose Duration</h2>
+<button onclick="setDays(30)">30 Days</button>
+<button onclick="setDays(60)">60 Days</button>
+<button onclick="setDays(90)">90 Days</button>
+</div>
+<div class="card">
+<h2>Loan Calculator</h2>
+<label>Amount (PKR)</label>
+<input id="amount" type="number" min="1000" max="100000" value="10000" oninput="calc()">
+<label>Duration</label>
+<select id="days" onchange="calc()">
+<option value="30">30 Days</option>
+<option value="60">60 Days</option>
+<option value="90">90 Days</option>
+</select>
+<div class="result">
+<p>Illustrative fee: PKR <b id="fee">500</b></p>
+<p>Estimated total: PKR <b id="total">10500</b></p>
+</div>
+<p>Demo calculator only. No loan is issued and no payment is collected.</p>
+</div>
+<div class="card">
+<h2>Application Demo</h2>
+<p>Test only. Do not enter real CNIC or bank details.</p>
+<input id="name" placeholder="Example name">
+<select id="purpose">
+<option>Personal expenses</option>
+<option>Education</option>
+<option>Business</option>
+<option>Emergency</option>
+</select>
+<button onclick="preview()">Preview Application</button>
+<p id="message"></p>
+</div>
+<div class="card">
+<h2>Admin Dashboard Demo</h2>
+<p>Applications: 0</p>
+<p>Pending: 0</p>
+<p>Approved: 0</p>
+<p>Payments: PKR 0</p>
+<small>Demo only. Secure admin login and database saving are not set up yet.</small>
+</div>
+</main>
+<script>
+function setDays(d){
+document.getElementById('days').value=d;
+calc();
+}
+function calc(){
+let a=Math.max(0,Number(document.getElementById('amount').value)||0);
+let d=Number(document.getElementById('days').value);
+let f=Math.round(a*0.05*d/30);
+document.getElementById('fee').textContent=f.toLocaleString();
+document.getElementById('total').textContent=Math.round(a+f).toLocaleString();
+}
+function preview(){
+let n=document.getElementById('name').value.trim();
+document.getElementById('message').textContent=n?
+'Demo preview for '+n+'. Application was not saved or submitted.':
+'Please enter an example name.';
+}
+calc();
+</script>
+</body>
+</html>
+
